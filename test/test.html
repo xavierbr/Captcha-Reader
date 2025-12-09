@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captcha Reader Test Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            color: #e4e4e7;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #4ade80, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        p {
+            color: #a1a1aa;
+            margin-bottom: 40px;
+            text-align: center;
+            max-width: 500px;
+        }
+        
+        .test-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 900px;
+            width: 100%;
+        }
+        
+        .captcha-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .captcha-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .captcha-card h3 {
+            font-size: 1rem;
+            color: #71717a;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+        
+        .captcha-image {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+        
+        .captcha-image img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .expected {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-size: 1.25rem;
+            color: #4ade80;
+            padding: 8px 16px;
+            background: rgba(74, 222, 128, 0.1);
+            border-radius: 6px;
+            display: inline-block;
+        }
+        
+        .instructions {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 600px;
+            margin-top: 40px;
+        }
+        
+        .instructions h2 {
+            font-size: 1.25rem;
+            margin-bottom: 16px;
+            color: #e4e4e7;
+        }
+        
+        .instructions ol {
+            text-align: left;
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            color: #a1a1aa;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        
+        .instructions code {
+            background: rgba(74, 222, 128, 0.2);
+            color: #4ade80;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'SF Mono', Monaco, monospace;
+        }
+
+        .paste-test {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .paste-test input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-family: 'SF Mono', Monaco, monospace;
+            text-align: center;
+            transition: border-color 0.2s;
+        }
+
+        .paste-test input:focus {
+            outline: none;
+            border-color: #4ade80;
+        }
+
+        .paste-test input::placeholder {
+            color: #71717a;
+        }
+    </style>
+</head>
+<body>
+    <h1>Captcha Reader Test Page</h1>
+    <p>Right-click on any captcha image below and select "Read Captcha" to test the extension.</p>
+    
+    <div class="test-container">
+        <div class="captcha-card">
+            <h3>Test Captcha 1</h3>
+            <div class="captcha-image">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='50'%3E%3Crect fill='%23f0f0f0' width='150' height='50'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='28' font-weight='bold' fill='%23333'%3E847291%3C/text%3E%3C/svg%3E" alt="Captcha: 847291">
+            </div>
+            <div class="expected">Expected: 847291</div>
+        </div>
+        
+        <div class="captcha-card">
+            <h3>Test Captcha 2</h3>
+            <div class="captcha-image">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='50'%3E%3Crect fill='%23e8e8e8' width='150' height='50'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia' font-size='26' font-weight='bold' fill='%23444' font-style='italic'%3E159263%3C/text%3E%3C/svg%3E" alt="Captcha: 159263">
+            </div>
+            <div class="expected">Expected: 159263</div>
+        </div>
+        
+        <div class="captcha-card">
+            <h3>Test Captcha 3</h3>
+            <div class="captcha-image">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='50'%3E%3Crect fill='%23fff' width='150' height='50'/%3E%3Cline x1='0' y1='15' x2='150' y2='35' stroke='%23ddd' stroke-width='1'/%3E%3Cline x1='0' y1='35' x2='150' y2='15' stroke='%23ddd' stroke-width='1'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='Courier' font-size='24' font-weight='bold' fill='%23222'%3E503718%3C/text%3E%3C/svg%3E" alt="Captcha: 503718">
+            </div>
+            <div class="expected">Expected: 503718</div>
+        </div>
+    </div>
+    
+    <div class="instructions">
+        <h2>How to Test</h2>
+        <ol>
+            <li>Open <code>chrome://extensions</code> in Chrome</li>
+            <li>Enable "Developer mode" (top right toggle)</li>
+            <li>Click "Load unpacked" and select the extension folder</li>
+            <li>Return to this page and right-click on any captcha image</li>
+            <li>Select "Read Captcha" from the context menu</li>
+            <li>The numbers will be automatically copied to your clipboard!</li>
+        </ol>
+        
+        <div class="paste-test">
+            <input type="text" placeholder="Click here and paste (Ctrl+V / Cmd+V) to verify">
+        </div>
+    </div>
+</body>
+</html>
+
+

@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Captcha Reader",
+  "version": "1.0.0",
+  "description": "Right-click on captcha images to read numbers and copy to clipboard",
+  "permissions": [
+    "contextMenus",
+    "activeTab",
+    "clipboardWrite",
+    "notifications",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["tesseract.min.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "incognito": "spanning"
+}
