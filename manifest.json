@@ -25,6 +25,6 @@
       ],
       "matches": ["<all_urls>"]
     }
-  },
+  ],
   "incognito": "spanning"
 }
