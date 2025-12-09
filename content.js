@@ -15,7 +15,12 @@ if (!window.captchaReaderInitialized) {
       throw new Error('Tesseract.js not loaded');
     }
     
-    window.tesseractWorker = await Tesseract.createWorker('eng');
+    // Use locally bundled worker and core to comply with MV3 remote code restrictions
+    window.tesseractWorker = await Tesseract.createWorker('eng', 1, {
+      workerPath: chrome.runtime.getURL('worker.min.js'),
+      corePath: chrome.runtime.getURL('tesseract-core.wasm.js'),
+      logger: m => console.log(m),
+    });
     
     // Configure for digits only
     await window.tesseractWorker.setParameters({
