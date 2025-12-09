@@ -36,25 +36,13 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
       });
     } catch (error) {
       console.error('Error:', error);
-      // Show notification about the error
-      chrome.notifications.create({
-        type: "basic",
-        iconUrl: "icons/icon48.png",
-        title: "Captcha Reader",
-        message: "Failed to read captcha. Please refresh the page and try again."
+      // If the content script isn't ready, ask the user to refresh
+      chrome.tabs.sendMessage(tab.id, {
+        action: "readCaptchaError",
+        error: "Failed to read captcha. Please refresh the page and try again."
+      }).catch(() => {
+        // Tab may not be reachable; log only
       });
     }
-  }
-});
-
-// Listen for messages from content script
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.action === "showNotification") {
-    chrome.notifications.create({
-      type: "basic",
-      iconUrl: "icons/icon48.png",
-      title: "Captcha Reader",
-      message: message.text
-    });
   }
 });

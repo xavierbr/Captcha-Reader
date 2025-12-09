@@ -232,10 +232,6 @@ if (!window.captchaReaderInitialized) {
         const copied = await copyToClipboard(digits);
         if (copied) {
           showToast(`Copied: ${digits}`);
-          chrome.runtime.sendMessage({
-            action: 'showNotification',
-            text: `Copied to clipboard: ${digits}`
-          });
         } else {
           showToast('Failed to copy to clipboard', true);
         }
@@ -254,6 +250,8 @@ if (!window.captchaReaderInitialized) {
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === 'readCaptcha') {
       window.processCaptcha(message.imageUrl);
+    } else if (message.action === 'readCaptchaError') {
+      showToast(message.error || 'Failed to read captcha', true);
     }
   });
 }

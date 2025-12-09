@@ -7,7 +7,6 @@
     "contextMenus",
     "activeTab",
     "clipboardWrite",
-    "notifications",
     "scripting"
   ],
   "background": {
